@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>رف خشبي معلّق | Wood Signature</title>
+  <meta name="description" content="رف خشبي معلّق بتصميم ديكوري عملي وخامة طبيعية من Wood Signature.">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .detail-page {
+      padding: 40px 0 80px;
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .detail-gallery {
+      display: grid;
+      gap: 16px;
+    }
+
+    .detail-gallery img {
+      width: 100%;
+      border-radius: 24px;
+      object-fit: cover;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(90, 62, 43, 0.08);
+      background: #fff;
+    }
+
+    .detail-gallery .main-image {
+      aspect-ratio: 1 / 1;
+    }
+
+    .detail-gallery .detail-image {
+      aspect-ratio: 1 / 1;
+    }
+
+    .detail-content {
+      background: rgba(255, 250, 243, 0.9);
+      border: 1px solid rgba(90, 62, 43, 0.08);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 98px;
+    }
+
+    .detail-badge {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(111, 122, 77, 0.10);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.88rem;
+      margin-bottom: 14px;
+    }
+
+    .detail-content h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .detail-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 14px 0 18px;
+    }
+
+    .detail-desc {
+      color: var(--muted);
+      line-height: 1.95;
+      margin-bottom: 22px;
+    }
+
+    .specs {
+      display: grid;
+      gap: 12px;
+      margin: 20px 0 24px;
+      padding: 20px;
+      background: rgba(246, 241, 232, 0.8);
+      border: 1px solid rgba(90, 62, 43, 0.08);
+      border-radius: 22px;
+    }
+
+    .spec-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid rgba(90, 62, 43, 0.08);
+      padding-bottom: 10px;
+    }
+
+    .spec-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .spec-item strong {
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .spec-item span {
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .note-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(176, 141, 87, 0.08);
+      border: 1px solid rgba(176, 141, 87, 0.18);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 980px) {
+      .detail-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-content {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .detail-page {
+        padding-top: 28px;
+      }
+
+      .detail-content {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .spec-item {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .action-row {
+        flex-direction: column;
+      }
+
+      .action-row .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="العودة للرئيسية">
+        <img src="images/logo.png" alt="Wood Signature Logo" class="brand-logo">
+        <span class="brand-name">WOOD SIGNATURE</span>
+      </a>
+
+      <nav class="site-nav" aria-label="التنقل الرئيسي">
+        <a href="index.html#products">المنتجات</a>
+        <a href="our-story.html">قصتنا</a>
+        <a href="index.html#order">اطلب الآن</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="detail-page">
+    <div class="container">
+      <div class="detail-layout">
+
+        <div class="detail-gallery">
+          <img src="images/product-2.jpg" alt="رف خشبي معلّق" class="main-image">
+          <img src="images/product-2-detail.jpg" alt="تفاصيل الرف الخشبي المعلّق" class="detail-image">
+        </div>
+
+        <div class="detail-content">
+          <span class="detail-badge">New Collection</span>
+          <h1>رف خشبي معلّق</h1>
+          <div class="detail-price">حسب الطلب</div>
+
+          <p class="detail-desc">
+            رف خشبي معلّق بتصميم بسيط وهادئ، يجمع بين الخشب الطبيعي والحبل ليمنح المساحة طابعًا ديكوريًا دافئًا وعمليًا في الوقت نفسه.
+          </p>
+
+          <div class="specs">
+            <div class="spec-item">
+              <strong>عرض الرف</strong>
+              <span>40 سم</span>
+            </div>
+            <div class="spec-item">
+              <strong>عمق الرف</strong>
+              <span>15 سم</span>
+            </div>
+            <div class="spec-item">
+              <strong>طول الحبل</strong>
+              <span>55 سم</span>
+            </div>
+            <div class="spec-item">
+              <strong>التشطيب</strong>
+              <span>يدوي طبيعي</span>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <a href="index.html#order" class="btn btn-primary">اطلب الآن</a>
+            <a href="index.html#products" class="btn btn-secondary">رجوع للمنتجات</a>
+          </div>
+
+          <div class="note-box">
+            القطعة مناسبة للمداخل، غرف المعيشة، والمكاتب المنزلية. وجودها يعطي إحساسًا مرتبًا وراقيًا دون أن يزدحم المكان بصريًا.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
