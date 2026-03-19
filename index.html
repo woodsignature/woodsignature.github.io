@@ -196,32 +196,16 @@
           </div>
     </div>
 
-<!-- Netlify hidden form (مهم جدا) -->
-<form name="order" method="POST" data-netlify="true" hidden>
-  <input type="hidden" name="form-name" value="order">
-  <input name="name">
-  <input name="phone">
-  <input name="product">
-  <input name="governorate">
-<input name="address">
-  
-  <textarea name="message"></textarea>
-</form>
-
-<!-- الفورم الأساسي -->
-<form 
+<!-- الفورم الأساسي (FormSubmit) -->
+<form
   class="order-form"
-  name="order"
+  action="https://formsubmit.co/f.devilavocat2@gmail.com"
   method="POST"
-  data-netlify="true"
-  netlify-honeypot="bot-field"
   onsubmit="handleSubmit(event)"
 >
-  <input type="hidden" name="form-name" value="order">
-
-  <p class="hidden">
-    <input name="bot-field">
-  </p>
+  <input type="hidden" name="_subject" value="طلب جديد من Wood Signature">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
 
   <div class="form-group">
     <label>الاسم</label>
@@ -235,39 +219,6 @@
 
   <div class="form-group">
     <label>المنتج</label>
-    
-  <label>المحافظة</label>
-  <select name="governorate" required>
-    <option disabled selected>اختر المحافظة</option>
-    <option>القاهرة</option>
-    <option>الجيزة</option>
-    <option>الإسكندرية</option>
-    <option>الدقهلية</option>
-    <option>الشرقية</option>
-    <option>الغربية</option>
-    <option>المنوفية</option>
-    <option>القليوبية</option>
-    <option>البحيرة</option>
-    <option>كفر الشيخ</option>
-    <option>دمياط</option>
-    <option>بورسعيد</option>
-    <option>الإسماعيلية</option>
-    <option>السويس</option>
-    <option>بني سويف</option>
-    <option>الفيوم</option>
-    <option>المنيا</option>
-    <option>أسيوط</option>
-    <option>سوهاج</option>
-    <option>قنا</option>
-    <option>الأقصر</option>
-    <option>أسوان</option>
-  </select>
-</div>
-
-<div class="form-group">
-  <label>العنوان بالتفصيل</label>
-  <textarea name="address" rows="3" placeholder="المنطقة - الشارع - رقم العمارة" required></textarea>
-</div>
     <select name="product" required>
       <option disabled selected>اختر المنتج</option>
       <option value="ساعة خشب">ساعة خشب طبيعية</option>
@@ -276,9 +227,39 @@
     </select>
   </div>
 
- 
+  <div class="form-group">
+    <label>المحافظة</label>
+    <select name="governorate" required>
+      <option disabled selected>اختر المحافظة</option>
+      <option>القاهرة</option>
+      <option>الجيزة</option>
+      <option>الإسكندرية</option>
+      <option>الدقهلية</option>
+      <option>الشرقية</option>
+      <option>الغربية</option>
+      <option>المنوفية</option>
+      <option>القليوبية</option>
+      <option>البحيرة</option>
+      <option>كفر الشيخ</option>
+      <option>دمياط</option>
+      <option>بورسعيد</option>
+      <option>الإسماعيلية</option>
+      <option>السويس</option>
+      <option>بني سويف</option>
+      <option>الفيوم</option>
+      <option>المنيا</option>
+      <option>أسيوط</option>
+      <option>سوهاج</option>
+      <option>قنا</option>
+      <option>الأقصر</option>
+      <option>أسوان</option>
+    </select>
+  </div>
 
-  
+  <div class="form-group">
+    <label>العنوان بالتفصيل</label>
+    <textarea name="address" rows="3" placeholder="المنطقة - الشارع - رقم العمارة" required></textarea>
+  </div>
 
   <div class="form-group">
     <label>تفاصيل إضافية</label>
@@ -292,7 +273,6 @@
   <p id="success-msg" style="display:none; color:green; font-weight:bold; margin-top:10px;">
     ✔ تم إرسال الطلب بنجاح — سيتم التواصل معك خلال دقائق
   </p>
-
 </form>
 
 </div>
@@ -312,28 +292,17 @@
 </footer>
 
 <script>
-
-
 function handleSubmit(e) {
   e.preventDefault();
 
   const form = e.target;
-  const data = new FormData(form);
 
- const name = form.name.value;
-const phone = form.phone.value;
-const product = form.product.value;
-const governorate = form.governorate.value;
-const address = form.address.value;
-const message = form.message.value;
-
-  fetch("/", {
-    method: "POST",
-    body: data
-  })
-  .then(() => {
-
-    document.getElementById("success-msg").style.display = "block";
+  const name = form.name.value;
+  const phone = form.phone.value;
+  const product = form.product.value;
+  const governorate = form.governorate.value;
+  const address = form.address.value;
+  const message = form.message.value;
 
   const text = `طلب جديد:
 الاسم: ${name}
@@ -341,18 +310,29 @@ const message = form.message.value;
 المنتج: ${product}
 المحافظة: ${governorate}
 العنوان: ${address}
-
 تفاصيل: ${message}`;
 
-    setTimeout(() => {
-      window.location.href =
-        "https://wa.me/201111630767?text=" + encodeURIComponent(text);
-    }, 800);
+  const payload = new URLSearchParams(new FormData(form));
 
-  })
-  .catch(() => {
-    alert("حصل خطأ");
-  });
+  fetch(form.action, {
+    method: "POST",
+    mode: "no-cors",
+    keepalive: true,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: payload.toString()
+  }).catch(() => {});
+
+  document.getElementById("success-msg").style.display = "block";
+
+  window.open(
+    "https://wa.me/201111630767?text=" + encodeURIComponent(text),
+    "_blank",
+    "noopener"
+  );
+
+  form.reset();
 }
 </script>
 
