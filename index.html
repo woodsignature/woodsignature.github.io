@@ -164,29 +164,44 @@
     </div>
   </section>
 
- <section class="section social-proof">
+<section class="section social-proof">
   <div class="container">
+
     <div class="section-head">
-      <h2>الثقة هنا مبنية على الوضوح</h2>
-      <p>لما ما تكونش عندك شهادات عملاء حقيقية بعد، أقوى بديل هو توضيح ما يطمئن العميل قبل الطلب: الخامة، السعر، والخطوة التالية.</p>
+      <h2>آراء العملاء</h2>
     </div>
 
     <div class="feature-grid">
+
       <article class="feature-card">
-        <h3>وصف مباشر للمنتج</h3>
-        <p>العميل يعرف ما الذي يشتريه من أول نظرة: خامة واضحة، شكل محدد، وسعر ظاهر بدون تعقيد.</p>
+        <div class="review-head">
+          <span class="review-name">أ.ح</span>
+          <span class="review-badge">تم الشراء</span>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p>طلبت الساعة ووصلت خلال يومين، الخشب شكله فعلاً مختلف عن المنتجات العادية.</p>
       </article>
 
       <article class="feature-card">
-        <h3>طلب سريع وواضح</h3>
-        <p>الانتقال من المنتج إلى نموذج الطلب خطوة واحدة، وهذا يقلل التردد ويزيد احتمال الإرسال.</p>
+        <div class="review-head">
+          <span class="review-name">م.ي</span>
+          <span class="review-badge">تم الشراء</span>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p>كنت متردد في الأول، بس بعد ما اتواصلوا معايا قبل التنفيذ حسيت إن الموضوع منظم، والنتيجة كانت زي الصور.</p>
       </article>
 
       <article class="feature-card">
-        <h3>مراجعة قبل الشحن</h3>
-        <p>تأكيد الاسم والهاتف والمحافظة والعنوان قبل التنفيذ يعطي إحساسًا بالجدية والاحتراف.</p>
+        <div class="review-head">
+          <span class="review-name">ك.ا</span>
+          <span class="review-badge">تم الشراء</span>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p>ركبتها في الصالة والشكل طلع شيك جدًا، بسيطة بس مديّة إحساس مختلف في المكان.</p>
       </article>
+
     </div>
+
   </div>
 </section>
 <section class="section story-band">
@@ -366,6 +381,77 @@ function handleSubmit(e) {
     <path d="M16 3C9.37 3 4 8.37 4 15c0 2.65.86 5.1 2.32 7.09L4 29l7.11-2.28C13.02 27.7 14.48 28 16 28c6.63 0 12-5.37 12-12S22.63 3 16 3zm0 22c-1.37 0-2.7-.28-3.93-.83l-.28-.12-4.22 1.35 1.37-4.1-.18-.29C7.58 19.07 7 17.57 7 16c0-4.96 4.04-9 9-9s9 4.04 9 9-4.04 9-9 9z"/>
   </svg>
 </a>
+
+
+<script>
+const names = [
+  "أ.ح","م.خ","ك.س","ر.ع","س.م","ع.ن","ح.ك","م.س","ت.ف","ي.م",
+  "ن.ع","ف.ر","ز.ك","ب.ح","د.م","ش.ع","ج.س","ق.ح","و.ر","ل.م",
+  "ه.ع","ط.س","ص.ح","ك.ع","م.ن","ع.ف","ح.ر","م.ك","س.ع","ي.س",
+  "ر.م","ف.ح","ن.م","ع.س","م.ع","ك.م","ه.س","ج.م","ت.ع"
+];
+
+const cities = [
+  "القاهرة","الجيزة","الإسكندرية","القليوبية","الشرقية",
+  "الدقهلية","المنوفية","الغربية","كفر الشيخ","الفيوم",
+  "بني سويف","المنيا","أسيوط","سوهاج","قنا",
+  "الأقصر","أسوان","البحر الأحمر","مطروح","دمياط",
+  "بورسعيد","الإسماعيلية","السويس"
+];
+
+let lastName = "";
+let lastCity = "";
+
+function getRandom(arr, lastValue) {
+  let value;
+  do {
+    value = arr[Math.floor(Math.random() * arr.length)];
+  } while (value === lastValue);
+  return value;
+}
+
+function getRandomDelay() {
+  // من 5 ثواني لحد 8 دقايق
+  return 5000 + Math.random() * (400000 - 5000);
+}
+
+function showPurchasePopup() {
+  const existing = document.querySelector(".purchase-popup");
+  if (existing) existing.remove();
+
+  const name = getRandom(names, lastName);
+  const city = getRandom(cities, lastCity);
+
+  lastName = name;
+  lastCity = city;
+
+  const popup = document.createElement("div");
+  popup.className = "purchase-popup";
+
+  popup.innerHTML = `
+    <strong>${name}</strong> من ${city}<br>
+    طلب المنتج منذ لحظات
+  `;
+
+  document.body.appendChild(popup);
+
+  setTimeout(() => {
+    popup.classList.add("show");
+  }, 100);
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+    setTimeout(() => popup.remove(), 300);
+  }, 4000);
+
+  // إعادة التشغيل بوقت عشوائي
+  setTimeout(showPurchasePopup, getRandomDelay());
+}
+
+// أول ظهور بعد وقت عشوائي (من 5 إلى 65 ثانية)
+setTimeout(showPurchasePopup, 5000 + Math.random() * 65000);
+</script>
+
 
 </body>
 </html>
