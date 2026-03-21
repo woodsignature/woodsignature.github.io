@@ -254,17 +254,17 @@ button.btn-secondary {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  background: linear-gradient(135deg, #5a3e2b, #3f2a1d);
   color: #fff;
   border: none;
   transition: all 0.2s ease;
-  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.25);
+  box-shadow: 0 8px 20px rgba(90, 62, 43, 0.22);
 }
 
 .btn-primary:hover {
-  background: #15803d; /* أخضر أغمق */
+  background: linear-gradient(135deg, #3f2a1d, #2f1f15);
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(22, 163, 74, 0.35);
+  box-shadow: 0 12px 26px rgba(90, 62, 43, 0.28);
 }
 
 .btn-primary:active {
@@ -440,7 +440,7 @@ button.btn-secondary {
   width: fit-content;
   padding: 6px 10px;
   border-radius: 999px;
-  background: #b3261e;
+  background: #8b2c2c;
   color: #fff;
   font-size: 0.8rem;
   font-weight: 700;
@@ -474,7 +474,8 @@ button.btn-secondary {
 }
 
 .scarcity-text {
-  color: #b3261e;
+ color: #a94442;
+  font-weight: 700;
   font-weight: 700;
   font-size: 0.94rem;
   margin-top: -2px;
@@ -1076,9 +1077,11 @@ textarea:focus-visible {
 .offer-badge {
   position: absolute;
   top: -10px;
-  left: 12px;
-  background: #dc2626; /* أحمر */
-  color: white;
+  right: 12px;
+left: auto;
+  background: #8b2c2c;
+color: #fff;
+border: none;
   font-size: 0.75rem;
   font-weight: 700;
   padding: 6px 12px;
@@ -1123,4 +1126,53 @@ textarea:focus-visible {
   .offer-box {
     padding: 14px;
   }
+}
+
+
+
+.review-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.review-name {
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.review-badge {
+  font-size: 0.7rem;
+  background: rgba(47, 122, 77, 0.1);
+  color: #2f7a4d;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.review-stars {
+  color: #b08d57;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}.purchase-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.purchase-popup.show {
+  opacity: 1;
+  transform: translateY(0);
 }
