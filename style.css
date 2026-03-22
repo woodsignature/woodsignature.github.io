@@ -872,16 +872,14 @@ textarea:focus-visible {
 }
 
 .page-title {
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  line-height: 1.2;
-  margin-bottom: 20px;
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
   color: var(--text);
+  margin-bottom: 20px;
 }
 
-.story-page {
-  display: grid;
-  gap: 16px;
-}
+
 
 .story-page p {
   color: var(--muted);
@@ -892,6 +890,8 @@ textarea:focus-visible {
 
 /* Story page */
 .story-page {
+  display: grid;
+  gap: 16px;
   padding-top: 44px;
   padding-bottom: 88px;
 }
@@ -902,12 +902,7 @@ textarea:focus-visible {
   margin-bottom: 28px;
 }
 
-.page-title {
-  font-size: clamp(2.2rem, 4vw, 3.6rem);
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-  color: var(--text);
-}
+
 
 .story-lead {
   max-width: 70ch;
@@ -1095,18 +1090,18 @@ border: none;
   gap: 12px;
 }
 
-/* Old Price (Muted) */
-.old-price {
+/* Old Price (Offer Box) */
+.offer-box .old-price {
   text-decoration: line-through;
   color: #9ca3af;
   font-size: 0.95rem;
 }
 
-/* New Price (Green Focus) */
-.new-price {
+/* New Price (Offer Box) */
+.offer-box .new-price {
   font-size: 1.7rem;
   font-weight: 800;
-  color: #16a34a; /* أخضر */
+  color: #16a34a;
 }
 
 /* ===== Offer Note ===== */
