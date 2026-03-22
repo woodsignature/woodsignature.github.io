@@ -463,5 +463,15 @@ setTimeout(showPurchasePopup, 5000 + Math.random() * 65000);
 </script>
 
 
+
+<script>
+  if (window.location.search.includes("products")) {
+    document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+  }
+</script>
+
+
+
+
 </body>
 </html>
