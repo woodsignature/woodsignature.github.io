@@ -1150,24 +1150,4 @@ border: none;
   color: #b08d57;
   font-size: 0.85rem;
   margin-bottom: 4px;
-}.purchase-popup {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 0.8rem;
-  color: var(--text);
-  box-shadow: var(--shadow-soft);
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  z-index: 999;
-}
-
-.purchase-popup.show {
-  opacity: 1;
-  transform: translateY(0);
 }
