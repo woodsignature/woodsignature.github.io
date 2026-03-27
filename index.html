@@ -30,6 +30,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+
+
+  <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1238471074940215');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1238471074940215&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+
+
 </head>
 <body>
 
@@ -373,6 +395,11 @@ function handleSubmit(e) {
     body: payload.toString()
   }).catch(() => {});
 
+  if (typeof fbq === "function") {
+  fbq('track', 'Lead');
+}
+
+
   document.getElementById("success-msg").style.display = "block";
 
   window.open(
@@ -385,7 +412,7 @@ function handleSubmit(e) {
 }
 </script>
 
-<a href="https://wa.me/201111630767" class="whatsapp-btn">
+<a href="https://wa.me/201111630767" class="whatsapp-btn" onclick="if (typeof fbq === 'function') { fbq('track', 'Lead'); }">
   <svg viewBox="0 0 32 32" width="26" height="26" fill="white">
     <path d="M19.11 17.38c-.29-.14-1.7-.84-1.96-.93-.26-.1-.45-.14-.64.14-.19.29-.73.93-.9 1.12-.16.19-.33.21-.62.07-.29-.14-1.23-.45-2.34-1.43-.86-.77-1.44-1.73-1.61-2.02-.17-.29-.02-.45.13-.6.13-.13.29-.33.43-.5.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.64-1.55-.88-2.13-.23-.55-.46-.47-.64-.48l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.43.01 1.43 1.03 2.81 1.17 3 .14.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.63.61.69.22 1.32.19 1.82.12.56-.08 1.7-.69 1.94-1.35.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.33z"/>
     <path d="M16 3C9.37 3 4 8.37 4 15c0 2.65.86 5.1 2.32 7.09L4 29l7.11-2.28C13.02 27.7 14.48 28 16 28c6.63 0 12-5.37 12-12S22.63 3 16 3zm0 22c-1.37 0-2.7-.28-3.93-.83l-.28-.12-4.22 1.35 1.37-4.1-.18-.29C7.58 19.07 7 17.57 7 16c0-4.96 4.04-9 9-9s9 4.04 9 9-4.04 9-9 9z"/>
@@ -393,74 +420,7 @@ function handleSubmit(e) {
 </a>
 
 
-<script>
-const names = [
-  "أ.ح","م.خ","ك.س","ر.ع","س.م","ع.ن","ح.ك","م.س","ت.ف","ي.م",
-  "ن.ع","ف.ر","ز.ك","ب.ح","د.م","ش.ع","ج.س","ق.ح","و.ر","ل.م",
-  "ه.ع","ط.س","ص.ح","ك.ع","م.ن","ع.ف","ح.ر","م.ك","س.ع","ي.س",
-  "ر.م","ف.ح","ن.م","ع.س","م.ع","ك.م","ه.س","ج.م","ت.ع"
-];
 
-const cities = [
-  "القاهرة","الجيزة","الإسكندرية","القليوبية","الشرقية",
-  "الدقهلية","المنوفية","الغربية","كفر الشيخ","الفيوم",
-  "بني سويف","المنيا","أسيوط","سوهاج","قنا",
-  "الأقصر","أسوان","البحر الأحمر","مطروح","دمياط",
-  "بورسعيد","الإسماعيلية","السويس"
-];
-
-let lastName = "";
-let lastCity = "";
-
-function getRandom(arr, lastValue) {
-  let value;
-  do {
-    value = arr[Math.floor(Math.random() * arr.length)];
-  } while (value === lastValue);
-  return value;
-}
-
-function getRandomDelay() {
-  // من 5 ثواني لحد 8 دقايق
-  return 5000 + Math.random() * (400000 - 5000);
-}
-
-function showPurchasePopup() {
-  const existing = document.querySelector(".purchase-popup");
-  if (existing) existing.remove();
-
-  const name = getRandom(names, lastName);
-  const city = getRandom(cities, lastCity);
-
-  lastName = name;
-  lastCity = city;
-
-  const popup = document.createElement("div");
-  popup.className = "purchase-popup";
-
-  popup.innerHTML = `
-    <strong>${name}</strong> من ${city}<br>
-    طلب المنتج منذ لحظات
-  `;
-
-  document.body.appendChild(popup);
-
-  setTimeout(() => {
-    popup.classList.add("show");
-  }, 100);
-
-  setTimeout(() => {
-    popup.classList.remove("show");
-    setTimeout(() => popup.remove(), 300);
-  }, 4000);
-
-  // إعادة التشغيل بوقت عشوائي
-  setTimeout(showPurchasePopup, getRandomDelay());
-}
-
-// أول ظهور بعد وقت عشوائي (من 5 إلى 65 ثانية)
-setTimeout(showPurchasePopup, 5000 + Math.random() * 65000);
-</script>
 
 
 
