@@ -364,10 +364,13 @@ src="https://www.facebook.com/tr?id=1238471074940215&ev=PageView&noscript=1"
 </footer>
 
 <script>
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
 
   const form = e.target;
+  
+  // 1. ضع رابط "تطبيق الويب" (Web App URL) الذي حصلت عليه من جوجل هنا
+  const googleSheetUrl = "ضع_رابط_جوجل_هنا"; 
 
   const name = form.name.value;
   const phone = form.phone.value;
@@ -376,6 +379,7 @@ function handleSubmit(e) {
   const address = form.address.value;
   const message = form.message.value;
 
+  // تجهيز نص رسالة الواتساب
   const text = `طلب جديد:
 الاسم: ${name}
 التليفون: ${phone}
@@ -384,32 +388,56 @@ function handleSubmit(e) {
 العنوان: ${address}
 تفاصيل: ${message}`;
 
-  const payload = new URLSearchParams(new FormData(form));
+  const formData = new FormData(form);
 
-  fetch(form.action, {
-    method: "POST",
-    mode: "no-cors",
-    keepalive: true,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: payload.toString()
-  }).catch(() => {});
+  // تغيير حالة الزر لتنبيه العميل
+  const submitBtn = form.querySelector('button[type="submit"]');
+  if(submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerText = "جاري إرسال طلبك...";
+  }
 
+  try {
+    // 2. إرسال البيانات للإيميل ولجوجل شيت في نفس الوقت والانتظار حتى الإتمام
+    await Promise.all([
+      // الإرسال للإيميل (FormSubmit)
+      fetch(form.action, {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: formData
+      }),
+      // الإرسال لجوجل شيت
+      fetch(googleSheetUrl, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams(formData)
+      })
+    ]);
+  } catch (error) {
+    console.error("حدث خطأ أثناء الإرسال:", error);
+  }
+
+  // 3. تتبع فيسبوك بيكسل
   if (typeof fbq === "function") {
-  fbq('track', 'Lead');
-}
+    fbq('track', 'Lead');
+  }
 
-
+  // 4. إظهار رسالة النجاح في الموقع
   document.getElementById("success-msg").style.display = "block";
 
+  // 5. فتح الواتساب في نافذة جديدة
   window.open(
     "https://wa.me/201111630767?text=" + encodeURIComponent(text),
     "_blank",
     "noopener"
   );
 
+  // 6. تفريغ الفورم وإعادة الزر لحالته
   form.reset();
+  if(submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.innerText = "إرسال الطلب";
+  }
 }
 </script>
 
