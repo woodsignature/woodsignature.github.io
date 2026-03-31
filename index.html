@@ -368,8 +368,8 @@ async function handleSubmit(e) {
   e.preventDefault();
   const form = e.target;
 
-  // تم وضع الرابط الجديد (الإصدار 7) هنا الآن
-  const googleSheetUrl = "https://script.google.com/macros/s/AKfycbyxrvIBS61KVLJbxakSXr-H5QhJsa6zN3Y0TqVuGTiITTNiBhcT1Jvn4gKXPzD3PNcg6g/exec"; 
+  // تم تحديث الرابط هنا إلى الإصدار 8 الأخير والناجح
+  const googleSheetUrl = "https://script.google.com/macros/s/AKfycby5QZZOBk9ruphakur1jDMxfEELLHW9gvu7NYCROVlLi5MlQ_rKeGI0io1b0OquAHXtAA/exec"; 
 
   const formData = new FormData(form);
   const text = `طلب جديد:
@@ -387,7 +387,7 @@ async function handleSubmit(e) {
   }
 
   try {
-    // إرسال البيانات
+    // إرسال البيانات لجوجل شيت وللإيميل
     await Promise.all([
       fetch(form.action, {
         method: "POST",
