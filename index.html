@@ -384,29 +384,40 @@ function handleSubmit(e) {
 العنوان: ${address}
 تفاصيل: ${message}`;
 
+  // ✅ 1) إرسال لـ Google Sheet
+  fetch("https://script.google.com/macros/s/AKfycbxWvRbWbP9mP5f2t0wIcYel9hKPM_EDDv28tOKzFEKiolD7-pZwUk8c9_vs838UAMXdaw/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      name: name,
+      phone: phone,
+      product: product,
+      governorate: governorate,
+      address: address,
+      message: message
+    })
+  }).catch(() => {});
+
+  // ✅ 2) إرسال للفورم القديم (FormSubmit)
   const payload = new URLSearchParams(new FormData(form));
 
   fetch(form.action, {
     method: "POST",
     mode: "no-cors",
-    keepalive: true,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
     body: payload.toString()
   }).catch(() => {});
 
+  // ✅ 3) Facebook Pixel
   if (typeof fbq === "function") {
-  fbq('track', 'Lead');
-}
+    fbq('track', 'Lead');
+  }
 
-
+  // ✅ 4) رسالة نجاح
   document.getElementById("success-msg").style.display = "block";
 
+  // ✅ 5) فتح واتساب
   window.open(
     "https://wa.me/201111630767?text=" + encodeURIComponent(text),
-    "_blank",
-    "noopener"
+    "_blank"
   );
 
   form.reset();
