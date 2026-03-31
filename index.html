@@ -273,11 +273,11 @@ src="https://www.facebook.com/tr?id=1238471074940215&ev=PageView&noscript=1"
       </div>
 
       <form
-  class="order-form"
-  action="https://formsubmit.co/ajax/f.devilavocat2@gmail.com"
-  method="POST"
-  onsubmit="handleSubmit(event)"
->
+        class="order-form"
+        action="https://formsubmit.co/f.devilavocat2@gmail.com"
+        method="POST"
+        onsubmit="handleSubmit(event)"
+      >
         <input type="hidden" name="_subject" value="طلب جديد من Wood Signature">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
@@ -364,7 +364,7 @@ src="https://www.facebook.com/tr?id=1238471074940215&ev=PageView&noscript=1"
 </footer>
 
 <script>
-async function handleSubmit(e) {
+function handleSubmit(e) {
   e.preventDefault();
 
   const form = e.target;
@@ -384,35 +384,31 @@ async function handleSubmit(e) {
 العنوان: ${address}
 تفاصيل: ${message}`;
 
-  // إرسال البيانات للإيميل والانتظار (await) حتى تكتمل العملية بنجاح
-  try {
-    await fetch(form.action, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json"
-      },
-      body: new FormData(form)
-    });
-  } catch (error) {
-    console.error("Error submitting form:", error);
-  }
+  const payload = new URLSearchParams(new FormData(form));
 
-  // تسجيل البيكسل بعد ضمان إرسال الطلب
+  fetch(form.action, {
+    method: "POST",
+    mode: "no-cors",
+    keepalive: true,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: payload.toString()
+  }).catch(() => {});
+
   if (typeof fbq === "function") {
-    fbq('track', 'Lead');
-  }
+  fbq('track', 'Lead');
+}
 
-  // إظهار رسالة النجاح
+
   document.getElementById("success-msg").style.display = "block";
 
-  // فتح الواتساب بعد إتمام كل شيء
   window.open(
     "https://wa.me/201111630767?text=" + encodeURIComponent(text),
     "_blank",
     "noopener"
   );
 
-  // تفريغ الفورم
   form.reset();
 }
 </script>
