@@ -273,11 +273,11 @@ src="https://www.facebook.com/tr?id=1238471074940215&ev=PageView&noscript=1"
       </div>
 
       <form
-        class="order-form"
-        action="https://formsubmit.co/f.devilavocat2@gmail.com"
-        method="POST"
-        onsubmit="handleSubmit(event)"
-      >
+  class="order-form"
+  action="https://formsubmit.co/ajax/f.devilavocat2@gmail.com"
+  method="POST"
+  onsubmit="handleSubmit(event)"
+>
         <input type="hidden" name="_subject" value="طلب جديد من Wood Signature">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
@@ -366,47 +366,35 @@ src="https://www.facebook.com/tr?id=1238471074940215&ev=PageView&noscript=1"
 <script>
 async function handleSubmit(e) {
   e.preventDefault();
-
   const form = e.target;
-  
-  // 1. ضع رابط "تطبيق الويب" (Web App URL) الذي حصلت عليه من جوجل هنا
-  const googleSheetUrl = "ضع_رابط_جوجل_هنا"; 
 
-  const name = form.name.value;
-  const phone = form.phone.value;
-  const product = form.product.value;
-  const governorate = form.governorate.value;
-  const address = form.address.value;
-  const message = form.message.value;
-
-  // تجهيز نص رسالة الواتساب
-  const text = `طلب جديد:
-الاسم: ${name}
-التليفون: ${phone}
-المنتج: ${product}
-المحافظة: ${governorate}
-العنوان: ${address}
-تفاصيل: ${message}`;
+  // الرابط اللي أنت جبته حطيتهولك هنا جاهز
+  const googleSheetUrl = "https://script.google.com/macros/s/AKfycbwSxJ44-VnNLsRsQ2VZ2U3W766hRiDdboIe7hLYzGDup23GSh66vCZ3jR4aVhtdaI06Gw/exec"; 
 
   const formData = new FormData(form);
+  const text = `طلب جديد:
+الاسم: ${form.name.value}
+التليفون: ${form.phone.value}
+المنتج: ${form.product.value}
+المحافظة: ${form.governorate.value}
+العنوان: ${form.address.value}
+تفاصيل: ${form.message.value}`;
 
-  // تغيير حالة الزر لتنبيه العميل
+  // تعطيل الزر مؤقتاً لمنع التكرار
   const submitBtn = form.querySelector('button[type="submit"]');
   if(submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.innerText = "جاري إرسال طلبك...";
+    submitBtn.innerText = "جاري الحفظ وإرسال الطلب...";
   }
 
   try {
-    // 2. إرسال البيانات للإيميل ولجوجل شيت في نفس الوقت والانتظار حتى الإتمام
+    // إرسال البيانات للإيميل ولجوجل شيت في نفس الوقت
     await Promise.all([
-      // الإرسال للإيميل (FormSubmit)
       fetch(form.action, {
         method: "POST",
         headers: { "Accept": "application/json" },
         body: formData
       }),
-      // الإرسال لجوجل شيت
       fetch(googleSheetUrl, {
         method: "POST",
         mode: "no-cors",
@@ -414,25 +402,25 @@ async function handleSubmit(e) {
       })
     ]);
   } catch (error) {
-    console.error("حدث خطأ أثناء الإرسال:", error);
+    console.error("Error:", error);
   }
 
-  // 3. تتبع فيسبوك بيكسل
+  // تتبع البيكسل
   if (typeof fbq === "function") {
     fbq('track', 'Lead');
   }
 
-  // 4. إظهار رسالة النجاح في الموقع
+  // إظهار رسالة النجاح
   document.getElementById("success-msg").style.display = "block";
 
-  // 5. فتح الواتساب في نافذة جديدة
+  // فتح الواتساب
   window.open(
     "https://wa.me/201111630767?text=" + encodeURIComponent(text),
     "_blank",
     "noopener"
   );
 
-  // 6. تفريغ الفورم وإعادة الزر لحالته
+  // إعادة ضبط الفورم
   form.reset();
   if(submitBtn) {
     submitBtn.disabled = false;
