@@ -385,17 +385,20 @@ function handleSubmit(e) {
 تفاصيل: ${message}`;
 
   // ✅ 1) إرسال لـ Google Sheet
-  fetch("https://script.google.com/macros/s/AKfycbxWvRbWbP9mP5f2t0wIcYel9hKPM_EDDv28tOKzFEKiolD7-pZwUk8c9_vs838UAMXdaw/exec", {
-    method: "POST",
-    body: JSON.stringify({
-      name: name,
-      phone: phone,
-      product: product,
-      governorate: governorate,
-      address: address,
-      message: message
-    })
-  }).catch(() => {});
+fetch("https://script.google.com/macros/s/AKfycbz1ulDXyiy85im5VUcyiYSKTDpttOftCmjag_cfItXMagfgdZYsBjxMuM4djlmrtL_t1w/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: name,
+    phone: phone,
+    product: product,
+    governorate: governorate,
+    address: address,
+    message: message
+  })
+}).catch(() => {});
 
   // ✅ 2) إرسال للفورم القديم (FormSubmit)
   const payload = new URLSearchParams(new FormData(form));
