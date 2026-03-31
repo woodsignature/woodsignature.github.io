@@ -386,30 +386,34 @@ function handleSubmit(e) {
 
   const payload = new URLSearchParams(new FormData(form));
 
+  // ✅ استنى الإرسال يخلص
   fetch(form.action, {
     method: "POST",
-    mode: "no-cors",
-    keepalive: true,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
     body: payload.toString()
-  }).catch(() => {});
+  })
+  .then(() => {
+    // فيسبوك
+    if (typeof fbq === "function") {
+      fbq('track', 'Lead');
+    }
 
-  if (typeof fbq === "function") {
-  fbq('track', 'Lead');
-}
+    // رسالة نجاح
+    document.getElementById("success-msg").style.display = "block";
 
+    // فتح واتساب بعد الإرسال
+    window.open(
+      "https://wa.me/201111630767?text=" + encodeURIComponent(text),
+      "_blank"
+    );
 
-  document.getElementById("success-msg").style.display = "block";
-
-  window.open(
-    "https://wa.me/201111630767?text=" + encodeURIComponent(text),
-    "_blank",
-    "noopener"
-  );
-
-  form.reset();
+    form.reset();
+  })
+  .catch(() => {
+    alert("حصل مشكلة بسيطة.. حاول تاني");
+  });
 }
 </script>
 
