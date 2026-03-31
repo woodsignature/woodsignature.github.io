@@ -384,36 +384,16 @@ function handleSubmit(e) {
 العنوان: ${address}
 تفاصيل: ${message}`;
 
-  const payload = new URLSearchParams(new FormData(form));
+  // ✅ ابعت الفورم بالطريقة الرسمية
+  form.submit();
 
-  // ✅ استنى الإرسال يخلص
-  fetch(form.action, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: payload.toString()
-  })
-  .then(() => {
-    // فيسبوك
-    if (typeof fbq === "function") {
-      fbq('track', 'Lead');
-    }
-
-    // رسالة نجاح
-    document.getElementById("success-msg").style.display = "block";
-
-    // فتح واتساب بعد الإرسال
+  // ✅ افتح واتساب بعد ثانية
+  setTimeout(() => {
     window.open(
       "https://wa.me/201111630767?text=" + encodeURIComponent(text),
       "_blank"
     );
-
-    form.reset();
-  })
-  .catch(() => {
-    alert("حصل مشكلة بسيطة.. حاول تاني");
-  });
+  }, 1500);
 }
 </script>
 
